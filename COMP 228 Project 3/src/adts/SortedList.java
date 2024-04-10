@@ -1,8 +1,9 @@
 package adts;
 import interfaces.ListInterface;
+import iterators.DDLIterator;
 import nodes.DLLNode;;
 
-public class SortedList<E> implements ListInterface<E> {
+public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 	protected DLLNode<E> head= null;
     protected DLLNode<E> tail;
     protected int counter=0; //counts size of the list
@@ -10,12 +11,9 @@ public class SortedList<E> implements ListInterface<E> {
 
     protected boolean found;  // true if element found, otherwise false
     protected DLLNode<E> location;   // indicates location of element when found is true
+    protected int option = 0;
         
-    public SortedList() {
-    	list = new SortedList<E>();
-    }
-    
-    	@Override
+    @Override
     public void add(E element) {
     		
             DLLNode<E> newNode = new DLLNode<E>(element);
@@ -96,6 +94,10 @@ public class SortedList<E> implements ListInterface<E> {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		public DDLIterator<E> iterator(){
+	    	return new DDLIterator<E>(list, counter, option);
+	    }
 		
 		@Override
 		public String toString() {
