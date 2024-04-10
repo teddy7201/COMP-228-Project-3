@@ -16,16 +16,34 @@ public class SortedList<E> implements ListInterface<E> {
     }
     
     	@Override
-        public void add(E element) {
+    public void add(E element) {
+    		
             DLLNode<E> newNode = new DLLNode<E>(element);
             if(head==null) {
-                head=newNode;
-                }
-            else if(head.getNext()==null){
-                head.setNext(newNode);
-            }else if (head.getNext()!=null) {
-                newNode.setPrev(newNode);
-            }
+                head = newNode;
+                tail = newNode;
+            }//Inserting when list is empty
+            
+            else if(((Comparable<E>)element).compareTo(head.getData()) <= 0) {
+            	newNode.setNext(head);
+                head.setPrev(newNode);
+                head = newNode;
+            }//Inserting at the beginning
+            
+            else if (((Comparable<E>)element).compareTo(tail.getData()) >= 0) {
+            	newNode.setPrev(tail);
+            	tail.setNext(newNode);
+            	tail = newNode;
+            }//Inserting at the end
+            
+            else {
+            	newNode.setPrev(location.getPrev());
+                newNode.setNext(location);
+                location.getPrev().setNext(newNode);
+                location.setPrev(newNode);
+            }//Inserting before location
+            
+    		counter++;	//Counting 
     	}
     	
     	public void find(E target) {
