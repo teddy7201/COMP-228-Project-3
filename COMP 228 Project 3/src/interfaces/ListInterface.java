@@ -2,7 +2,6 @@ package interfaces;
 
 public interface ListInterface<E> {
    
-
 	  void add(E element);
 	  
 	  boolean remove (E element);
