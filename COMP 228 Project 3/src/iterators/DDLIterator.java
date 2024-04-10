@@ -5,6 +5,7 @@ import nodes.DLLNode;
 import adts.SortedList;
 public class DDLIterator<E> implements Iterator<E> {
 
+
     protected int current = 0;
     public SortedList<E> list;
 	
@@ -15,6 +16,11 @@ public class DDLIterator<E> implements Iterator<E> {
 		this.list = list;
 		this.size = size;
 	}
+
+    protected DLLNode<E> head;
+    protected DLLNode<E> tail;
+    
+    
     
 	@Override
 	public boolean hasNext() {
@@ -27,17 +33,17 @@ public class DDLIterator<E> implements Iterator<E> {
 		current++;
 		return temp;
 		}
-
+/*
 	public String InOrder() {
 		
-		
+		// AHHHHHHHHHH
 		String R = "";
 		for (DLLNode<E> node : list){
 			R= R+ node +"\n";
 		}
 			return R;
 	}
-	
+	*/
 	public E ReversedOrder() {
 		// TODO Auto-generated method stub
 		return null;
