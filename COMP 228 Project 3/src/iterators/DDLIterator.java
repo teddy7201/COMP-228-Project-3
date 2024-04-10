@@ -3,6 +3,7 @@ package iterators;
 import java.util.Iterator;
 import nodes.DLLNode;
 import adts.SortedList;
+
 public class DDLIterator<E> implements Iterator<E> {
 
 
@@ -19,7 +20,6 @@ public class DDLIterator<E> implements Iterator<E> {
 
     protected DLLNode<E> head;
     protected DLLNode<E> tail;
-    
     
     
 	@Override

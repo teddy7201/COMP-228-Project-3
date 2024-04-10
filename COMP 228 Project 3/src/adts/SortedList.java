@@ -1,7 +1,7 @@
 package adts;
 import interfaces.ListInterface;
 import iterators.DDLIterator;
-import nodes.DLLNode;;
+import nodes.DLLNode;
 
 public class SortedList<E> implements ListInterface<E> {
 	protected DLLNode<E> head= null;
@@ -12,6 +12,10 @@ public class SortedList<E> implements ListInterface<E> {
     // set by find method
         protected boolean found;  // true if element found, otherwise false
         protected int location;   // indicates location of element when found is true
+        
+        public SortedList() {
+        	list = new SortedList<E>();
+        }
         
     	@Override
         public void add(E element) {
