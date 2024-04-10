@@ -1,9 +1,11 @@
 package iterators;
 
 import java.util.Iterator;
+import nodes.DLLNode;
 
 public class DDLIterator<E> implements Iterator<E> {
     protected DLLNode<E> top= new DLLNode<>();
+    protected DLLNode<E> next= new DLLNode<>();
     
 	@Override
 	public boolean hasNext() {
