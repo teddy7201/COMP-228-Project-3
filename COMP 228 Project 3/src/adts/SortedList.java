@@ -1,11 +1,13 @@
 package adts;
 import interfaces.ListInterface;
+import iterators.DDLIterator;
 import nodes.DLLNode;;
 
 public class SortedList<E> implements ListInterface<E> {
-	protected DLLNode<E> front= null;
+	protected DLLNode<E> head= null;
     protected DLLNode<E> tail;
     protected int counter=0;
+    protected SortedList<E> list;
 
     // set by find method
         protected boolean found;  // true if element found, otherwise false
@@ -14,12 +16,12 @@ public class SortedList<E> implements ListInterface<E> {
     	@Override
         public void add(E element) {
             DLLNode<E> newNode = new DLLNode<E>(element);
-            if(front==null) {
-                front=newNode;
+            if(head==null) {
+            	head=newNode;
                 }
-            else if(front.getNext()==null){
-                front.setNext(newNode);
-            }else if (front.getNext()!=null) {
+            else if(head.getNext()==null){
+            	head.setNext(newNode);
+            }else if (head.getNext()!=null) {
                 newNode.setPrev(newNode);
             }
     	}
@@ -53,5 +55,10 @@ public class SortedList<E> implements ListInterface<E> {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		 public  DDLIterator<E> iterator() {
+		    	return new  DDLIterator<E>( list,counter);
+		    }
+		 
+		
 
 }

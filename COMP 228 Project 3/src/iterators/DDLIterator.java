@@ -2,21 +2,61 @@ package iterators;
 
 import java.util.Iterator;
 import nodes.DLLNode;
-
+import adts.SortedList;
 public class DDLIterator<E> implements Iterator<E> {
-    protected DLLNode<E> top= new DLLNode<>();
-    protected DLLNode<E> next= new DLLNode<>();
+
+    protected int current = 0;
+    public SortedList<E> list;
+	
+    protected int size;  // the number of elements in the collection
+	
+	
+	public DDLIterator(SortedList<E> list,int size) {
+		this.list = list;
+		this.size = size;
+	}
     
 	@Override
 	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return current < size;
 	}
-
 	@Override
 	public E next() {
+		E temp = list.get(current);
+		current++;
+		return temp;
+		}
+
+	public String InOrder() {
+		
+		
+		String R = "";
+		for (DLLNode<E> node : list){
+			R= R+ node +"\n";
+		}
+			return R;
+	}
+	
+	public E ReversedOrder() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+		}
+
+	public E RanOrder() {
+		// TODO Auto-generated method stub
+		return null;
+		}
+	
+	public E AltOrder() {
+		// TODO Auto-generated method stub
+		return null;
+		}
+	
+	
+	
+	
+	
+	
 
 }
