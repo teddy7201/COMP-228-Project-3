@@ -15,42 +15,9 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
         
     	@Override
         public void add(E element) {
-        		
-                DLLNode<E> newNode = new DLLNode<E>(element);
-                DLLNode<E> ptr = head;
-                
-                if(head==null) {//Inserting when list is empty
-                    head = newNode;
-                    tail = newNode;
-                }
-                else if(head.getNext() == null) {//Inserts newNode when there's only one node in list
-                	if(((Comparable)(newNode.getData())).compareTo(head.getData()) > 0) {//if newNode greater than head,
-                		newNode.setPrev(tail);
-                		tail.setNext(newNode);
-                		tail = newNode;
-                	}
-                	else {
-                		newNode.setNext(head);
-                		head.setPrev(newNode);
-                		head = newNode;
-                	}
-                }
-                else {
-                	while (ptr != null) {
-                		if(((Comparable)(ptr.getData())).compareTo(ptr.getNext().getData()) > 0) {
-                        	newNode.setPrev(ptr.getPrev());
-                            newNode.setNext(ptr);
-                            ptr.getPrev().setNext(newNode);
-                            ptr.setPrev(newNode);
-                        }
-                		else {
-                			ptr.getNext();
-                		}
-                    }
-                }
-                
-                /*
-        	DLLNode<E> newNode = new DLLNode<E>(element);
+    		
+    		//Jonathan's set of Code
+    		DLLNode<E> newNode = new DLLNode<E>(element);
             if(head==null) {
                 head = newNode;
                 tail = newNode;
@@ -83,7 +50,41 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 
                 }//end else
             }//end while
-            */
+    		
+    		/* Code I tried making - Henry
+                DLLNode<E> newNode = new DLLNode<E>(element);
+                DLLNode<E> ptr = head;
+                
+                if(head==null) {//Inserting when list is empty
+                    head = newNode;
+                    tail = newNode;
+                }
+                else if(head.getNext() == null) {//Inserts newNode when there's only one node in list
+                	if(((Comparable)(newNode.getData())).compareTo(head.getData()) > 0) {//if newNode greater than head,
+                		newNode.setPrev(tail);
+                		tail.setNext(newNode);
+                		tail = newNode;
+                	}
+                	else {
+                		newNode.setNext(head);
+                		head.setPrev(newNode);
+                		head = newNode;
+                	}
+                }
+                else {
+                	while (ptr != null) {
+                		if(((Comparable)(ptr.getData())).compareTo(ptr.getNext().getData()) > 0) {
+                        	newNode.setPrev(ptr.getPrev());
+                            newNode.setNext(ptr);
+                            ptr.getPrev().setNext(newNode);
+                            ptr.setPrev(newNode);
+                        }
+                		else {
+                			ptr = ptr.getNext();
+                		}
+                    }
+                }
+                */       
     	}
     	
     	public void find(E target) {
@@ -168,7 +169,7 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 			DLLNode<E> ptr = head;
 			while (ptr != null) {
 				str.append(ptr.getData() + "\n");
-				ptr.getNext();
+				ptr = ptr.getNext();
 			 }
 			return str.toString();
 		}

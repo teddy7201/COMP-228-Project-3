@@ -17,6 +17,8 @@ public class PlayWithLists {
 	    list1.add("Liskov");
 	    list1.add("DePasquale");
 	    
+	    System.out.println("\nComputer Scientists:\n" + list1);
+	    
 //	    for (String s : list1) {
 //	    	System.out.println(s);
 //	    }
