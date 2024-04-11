@@ -86,13 +86,34 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 		}
 		@Override
 		public E get(E element) {
-			// TODO Auto-generated method stub
-			return null;
+		// return the first item on the list such that item.equals(element) is true
+		// if no such item exists, return null
+		
+		DLLNode<E> current = head;
+		
+		while (current != null) {
+			if (current.getData().equals(element)) {
+				return current.getData();
+			}
+			current = current.getNext();
 		}
+		return null;
+		
+	}
 		@Override
 		public E get(int index) {
-			// TODO Auto-generated method stub
-			return null;
+		// return the item at the specified position on the list;
+		// the first item is at index equal to zero
+		// if the index value is out of bounds, return null
+			
+			if (index < 0 || index > counter) { //out of bounds 
+		        return null;
+		    }
+		    DLLNode<E> current = head;
+		    for (int i = 0; i < index; i++) {
+		        current = current.getNext();
+		    }
+		    return current.getData();
 		}
 		
 		public DDLIterator<E> iterator(){
