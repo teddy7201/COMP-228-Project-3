@@ -13,35 +13,77 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
     protected DLLNode<E> location;   // indicates location of element when found is true
     protected int option = 0;
         
-    @Override
-    public void add(E element) {
-    		
-            DLLNode<E> newNode = new DLLNode<E>(element);
+    	@Override
+        public void add(E element) {
+        		
+                DLLNode<E> newNode = new DLLNode<E>(element);
+                DLLNode<E> ptr = head;
+                
+                if(head==null) {//Inserting when list is empty
+                    head = newNode;
+                    tail = newNode;
+                }
+                else if(head.getNext() == null) {//Inserts newNode when there's only one node in list
+                	if(((Comparable)(newNode.getData())).compareTo(head.getData()) > 0) {//if newNode greater than head,
+                		newNode.setPrev(tail);
+                		tail.setNext(newNode);
+                		tail = newNode;
+                	}
+                	else {
+                		newNode.setNext(head);
+                		head.setPrev(newNode);
+                		head = newNode;
+                	}
+                }
+                else {
+                	while (ptr != null) {
+                		if(((Comparable)(ptr.getData())).compareTo(ptr.getNext().getData()) > 0) {
+                        	newNode.setPrev(ptr.getPrev());
+                            newNode.setNext(ptr);
+                            ptr.getPrev().setNext(newNode);
+                            ptr.setPrev(newNode);
+                        }
+                		else {
+                			ptr.getNext();
+                		}
+                    }
+                }
+                
+                /*
+        	DLLNode<E> newNode = new DLLNode<E>(element);
             if(head==null) {
                 head = newNode;
                 tail = newNode;
-            }//Inserting when list is empty
-            
-            else if(((Comparable<E>)element).compareTo(head.getData()) <= 0) {
-            	newNode.setNext(head);
-                head.setPrev(newNode);
-                head = newNode;
-            }//Inserting at the beginning
-            
-            else if (((Comparable<E>)element).compareTo(tail.getData()) >= 0) {
-            	newNode.setPrev(tail);
-            	tail.setNext(newNode);
-            	tail = newNode;
-            }//Inserting at the end
-            
-            else {
-            	newNode.setPrev(location.getPrev());
-                newNode.setNext(location);
-                location.getPrev().setNext(newNode);
-                location.setPrev(newNode);
-            }//Inserting before location
-            
-    		counter++;	//Counting 
+                counter++;
+                return;
+            }//Inserting when the list is empty
+
+            DLLNode<E> ptr = head;
+            while(ptr != null) {
+                if(((Comparable<E>)element).compareTo(ptr.getData()) > 0) {    //When this is true it means that element is greater than the data in ptr
+                    ptr = ptr.getNext();        //moves to the next Node to compare further
+                }//end if
+
+                else {            //Executes if the element is less than or equal to the ptr data
+
+                    if(ptr.getPrev() == null) {
+                        newNode.setNext(ptr);
+                        ptr.setPrev(newNode);
+                        head = newNode;
+                    }//end if
+
+                    else {
+                        newNode.setPrev(ptr.getPrev());
+                        newNode.setNext(ptr);
+                        ptr.getPrev().setNext(newNode);
+                        ptr.setPrev(newNode);
+                    }//end else
+                    counter++;
+                    return;
+
+                }//end else
+            }//end while
+            */
     	}
     	
     	public void find(E target) {
