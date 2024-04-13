@@ -48,6 +48,8 @@ public class PlayWithLists {
     System.out.println("\n");
 	    /**/
     
+    
+    
 	    System.out.println(list2.remove(0) ? "0 removed" : "0 not found on the list");
 	    System.out.println(list2.remove(2) ? "2 removed" : "2 not found on the list");
     System.out.println(list2.remove(4) ? "4 removed" : "4 not found on the list");
@@ -62,6 +64,7 @@ System.out.println(list2.remove(8) ? "8 removed" : "8 not found on the list");
 	while (!list2.isEmpty()) {
 		list2.remove(list2.get(0));
 	}
-	    System.out.println("\nWhere have all the digits gone?\n" + list2);
+	
+	System.out.println("\nWhere have all the digits gone?\n" + list2);
 	}
 }

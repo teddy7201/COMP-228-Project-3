@@ -13,23 +13,22 @@ public class DDLIterator<E> implements Iterator<E> {
     protected int size;  // the number of elements in the collection
 	
 	
-	public DDLIterator(ArrayList<E> PrintType) {
+	public DDLIterator(ArrayList<E> PrintType) {// Robert and Emerson
 		this.list = PrintType;
 		this.size = PrintType.size();
-		
 		
 	}
 
     
     
 	@Override
-	public boolean hasNext() {
+	public boolean hasNext() {// Robert and Emerson
 
 			return current < size;
 		
 	}
 	@Override
-	public E next() {
+	public E next() {// Robert and Emerson
 		
 		
 		E temp = list.get(current);

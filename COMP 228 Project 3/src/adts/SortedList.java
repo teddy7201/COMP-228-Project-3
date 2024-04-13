@@ -21,7 +21,6 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
     
     	@Override
         public void add(E element) {
-    		
     		//Jonathan's set of Code
     		DLLNode<E> newNode = new DLLNode<E>(element);
             if(head==null) {
@@ -53,48 +52,13 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
                     }//end else
                     counter++;
                     return;
-
+                    
                 }//end else
             }//end while
             tail.setNext(newNode); // create reference for newNode/element next from tail
             newNode.setPrev(tail); // set newNode previous to tail
             tail = newNode;            // newNode becomes tail
             counter++;                // keep count
-    		
-    		/* Code I tried making - Henry
-                DLLNode<E> newNode = new DLLNode<E>(element);
-                DLLNode<E> ptr = head;
-                
-                if(head==null) {//Inserting when list is empty
-                    head = newNode;
-                    tail = newNode;
-                }
-                else if(head.getNext() == null) {//Inserts newNode when there's only one node in list
-                	if(((Comparable)(newNode.getData())).compareTo(head.getData()) > 0) {//if newNode greater than head,
-                		newNode.setPrev(tail);
-                		tail.setNext(newNode);
-                		tail = newNode;
-                	}
-                	else {
-                		newNode.setNext(head);
-                		head.setPrev(newNode);
-                		head = newNode;
-                	}
-                }
-                else {
-                	while (ptr != null) {
-                		if(((Comparable)(ptr.getData())).compareTo(ptr.getNext().getData()) > 0) {
-                        	newNode.setPrev(ptr.getPrev());
-                            newNode.setNext(ptr);
-                            ptr.getPrev().setNext(newNode);
-                            ptr.setPrev(newNode);
-                        }
-                		else {
-                			ptr = ptr.getNext();
-                		}
-                    }
-                }
-                */       
     	}
     	
     	public void find(E target) {
@@ -107,7 +71,7 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
     	        	return;
     	        }
     	        else {
-    	        	location.getNext();
+    	        	location = location.getNext();
     	        }
     	    }
     	}
@@ -116,11 +80,28 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 		@Override
 		public boolean remove(E element) {
 			find(element);
-			if (found) {
-				location.getPrev().setNext(location.getNext());
-				location.getNext().setPrev(location.getPrev());
+			if(location == head) {
+                head = head.getNext();
+                if(head!=null) {
+                    head.setPrev(null);
+                }
+                else {
+                    tail = null;
+                }
+                counter--;
+            }
+			else if (location == tail) {
+				tail = tail.getPrev();
+				tail.setNext(null);
 				counter--;
+			}
+			else {
+				if (found) {
+					location.getPrev().setNext(location.getNext());
+					location.getNext().setPrev(location.getPrev());
+					counter--;
 				}
+			}
 			return found;
 		}
 
@@ -137,6 +118,7 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 			find(element);
 			return found;
 		}
+		
 		@Override
 		public E get(E element) {
 		// return the first item on the list such that item.equals(element) is true
@@ -169,8 +151,11 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 		    return current.getData();
 		}
 		
+		public void setOption(int newOp) {
+			option = newOp;
+		}
 
-		public Iterator<E> iterator(){
+		public Iterator<E> iterator(){ // Robert and Emerson
 			
 			PrintType = new ArrayList<>(size());
 			switch (option) {
@@ -197,14 +182,14 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 	    	
 	    }
 		
-		public int setPrintType(int option) {
+		public int setPrintType(int option) { // Robert and Emerson
 		return this.option=option;
 		}
 		
 
 	
 		
-		public void InOrder() {
+		public void InOrder() { // Robert and Emerson
 			 DLLNode<E> ptr = head;
 			while (ptr != null) {
 				PrintType.add(ptr.getData());
@@ -214,7 +199,7 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 		}
 		
 		
-		public void ReversedOrder() {
+		public void ReversedOrder() {// Robert and Emerson
 			DLLNode<E> ptr = tail;
 			while (ptr != null) {
 				PrintType.add(ptr.getData());
@@ -226,7 +211,7 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 			
 			}
 
-		public void RanOrder() {
+		public void RanOrder() {// Robert and Emerson
 			ArrayList<E> temp1 = new ArrayList<E>();
 			 DLLNode<E> ptr = head;
 				while (ptr != null) {
@@ -241,7 +226,7 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 	
 			}
 		
-		public void AltOrder() {
+		public void AltOrder() {// Robert and Emerson
 			DLLNode<E> Front = head;
 			DLLNode<E> End = tail;
 			int count=0;
