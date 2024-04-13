@@ -1,7 +1,12 @@
 package adts;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.*;
+
 import interfaces.ListInterface;
+
+import nodes.DLLNode;
 import iterators.DDLIterator;
-import nodes.DLLNode;;
 
 public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 	protected DLLNode<E> head= null;
@@ -11,8 +16,9 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 
     protected boolean found;  // true if element found, otherwise false
     protected DLLNode<E> location;   // indicates location of element when found is true
-    protected int option = 0;
-        
+    protected int option;
+    protected ArrayList PrintType;
+    
     	@Override
         public void add(E element) {
     		
@@ -50,6 +56,10 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 
                 }//end else
             }//end while
+            tail.setNext(newNode); // create reference for newNode/element next from tail
+            newNode.setPrev(tail); // set newNode previous to tail
+            tail = newNode;            // newNode becomes tail
+            counter++;                // keep count
     		
     		/* Code I tried making - Henry
                 DLLNode<E> newNode = new DLLNode<E>(element);
@@ -159,9 +169,109 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 		    return current.getData();
 		}
 		
-		public DDLIterator<E> iterator(){
-	    	return new DDLIterator<E>(list, counter, option);
+
+		public Iterator<E> iterator(){
+			
+			PrintType = new ArrayList<>(size());
+			switch (option) {
+			case 0:
+				InOrder();
+				break;
+			case 1:
+				ReversedOrder();
+				break;
+			case 2:
+				RanOrder();
+				break;
+			case 3:
+				AltOrder();
+				break;
+			}
+			
+			
+			
+			
+			
+			return new DDLIterator<E>(PrintType); 
+			
+	    	
 	    }
+		
+		public int setPrintType(int option) {
+		return this.option=option;
+		}
+		
+
+	
+		
+		public void InOrder() {
+			 DLLNode<E> ptr = head;
+			while (ptr != null) {
+				PrintType.add(ptr.getData());
+				ptr=ptr.getNext();
+			}
+		
+		}
+		
+		
+		public void ReversedOrder() {
+			DLLNode<E> ptr = tail;
+			while (ptr != null) {
+				PrintType.add(ptr.getData());
+					
+					ptr=ptr.getPrev();
+				}
+			
+				
+			
+			}
+
+		public void RanOrder() {
+			ArrayList<E> temp1 = new ArrayList<E>();
+			 DLLNode<E> ptr = head;
+				while (ptr != null) {
+					temp1.add(ptr.getData());
+					ptr=ptr.getNext();
+				}
+				Collections.shuffle(temp1);
+				PrintType.addAll(temp1);
+			
+			
+			
+	
+			}
+		
+		public void AltOrder() {
+			DLLNode<E> Front = head;
+			DLLNode<E> End = tail;
+			int count=0;
+			if(size()%2== 0) {
+			while (count != size()/2) {
+				PrintType.add(Front.getData());
+				PrintType.add(End.getData());
+			
+				Front=Front.getNext();
+				End=End.getPrev();
+				
+				count++;
+			}
+			}else{
+				
+				while (count != size()/2) {
+					PrintType.add(Front.getData());
+					PrintType.add(End.getData());
+				
+					Front=Front.getNext();
+					count++;
+					End=End.getPrev();
+					
+					
+				}
+				
+				PrintType.add(End.getData());
+			}
+		}
+		
 		
 		@Override
 		public String toString() {
@@ -173,4 +283,6 @@ public class SortedList<E> implements ListInterface<E>, Iterable<E> {
 			 }
 			return str.toString();
 		}
+
+	
 }
